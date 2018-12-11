@@ -10,7 +10,7 @@ var spotify = new Spotify(keys.spotify);
 var moment = require("moment");
 
 // Create spotify function
-function runSpotifySearch(songName) {
+function spotifyThisSong(search) {
     var Spotify = require('node-spotify-api');
     var keys = require('./keys.js');
 
@@ -22,8 +22,8 @@ function runSpotifySearch(songName) {
         },
         function (err, data) {
             if (data) {
-                var trackInfo = data.tracks.items[0];
-                var trackResult = console.log('Song Name: ' + songInfo.name);
+                var data = data.tracks.items[0];
+                var data = console.log('Song Name: ' + songInfo.name);
                 console.log('Artist Name: ' + songInfo.artists[0].name);
                 console.log('A preview link of the song from Spotify' + songInfo.preview_url);
                 console.log('This song is part of the following album ' + songInfo.album.name);
@@ -44,7 +44,7 @@ var action = process.argv[2];
 function liriSwitch(action, artist) {
     switch (action) {
         case "spotify-this-song":
-            runSpotifySearch(artist);
+            spotifyThisSong(search);
             break;
 
         case "movie-this":
@@ -77,31 +77,14 @@ function concertThis(search) {
                 return console.log('Error occurred: ' + error);
             }
             var data = JSON.parse(body);
-            console.log("The name of the venue is: " + data[i].venue.name);
-            console.log("The location of this venue is: " + concertThis.city.name);
-            var date = moment(concertThis[0].datatime).format("MM/DD/YYYY")
+            console.log("The name of the venue is: " + data[0].venue.name);
+            console.log("The location of this venue is: " + data.city);
+            var date = moment(date).format("MM/DD/YYYY")
             console.log("The date of this event is: " + date + "!");
         }
 
     )}
     
-
-//function searchBandsinTown(artist) {
-// console.log(artist)
-// var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp",) {
-
-// }
-
-//request(queryURL, function (err, response, body) {
-// var concertInfo = JSON.parse(body);
-// console.log("The name of the venue is: " + concertInfo[0].venue.name);
-//  console.log("The location of this venue is: " + concertInfo.city.name);
-// var dateTimeConcert = moment(concertInfo[0].datatime).format("MM/DD/YYYY")
-//  console.log("The date of this event is: " + dateTimeConcert + " ");
-
-
-//});
-//};
 
 // Movie search 
 
