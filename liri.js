@@ -48,7 +48,7 @@ function liriSwitch(action, artist) {
             break;
 
         case "movie-this":
-            searchOMDB(artist);
+            movieThis(artist);
             break;
 
         case "do-what-it-says":
@@ -92,10 +92,10 @@ function movieThis(search) {
     }
     var axios = require("axios");
 
-    var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-    console.log(queryUrl);
+    var queryURL = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=trilogy";
+    console.log(queryURL);
 
-    axios.get(queryURL).then (
+    axios.get(queryURL).then(
         function(response) {
             console.log("Movie Title: " + response.data.Title);
             console.log("Year Released: " + response.data.Year);
