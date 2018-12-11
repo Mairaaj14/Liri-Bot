@@ -56,7 +56,7 @@ function liriSwitch(action, artist) {
             break;
 
         case "concert-this":
-            searchBandsinTown(artist);
+            concertThis(artist);
             break;
 
             //Instructions for user trying liri in command line
@@ -64,25 +64,44 @@ function liriSwitch(action, artist) {
             console.log("\n" + "type any command after 'node liri.js': " + "\n" +
                 "spotify-this-song 'any song title' " + "\n" +
                 "movie-this 'any-movie-title' " + "\n" +
-                "do-what-it-says " + "\n" );
+                "do-what-it-says " + "\n");
     };
 };
 liriSwitch(action, artist);
-
-function searchBandsinTown(artist) {
-    console.log(artist)
-    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-
-    request(queryURL, function (err, response, body) {
-        var concertInfo = JSON.parse(body);
-        console.log("The name of the venue is: " + concertInfo[0].venue.name);
-        console.log("The location of this venue is: " + concertInfo.venue.city);
-        var dateTimeConcert = moment(concertInfo[0].datatime).format("MM/DD/YYYY")
-        console.log("The date of this event is: " + dateTimeConcert + " ");
+// Bands in Town/ Concert info
+function concertThis(search) {
 
 
-    });
-};
+    request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
+            if (error) {
+                return console.log('Error occurred: ' + error);
+            }
+            var data = JSON.parse(body);
+            console.log("The name of the venue is: " + data[i].venue.name);
+            console.log("The location of this venue is: " + concertThis.city.name);
+            var date = moment(concertThis[0].datatime).format("MM/DD/YYYY")
+            console.log("The date of this event is: " + date + "!");
+        }
+
+    )}
+    
+
+//function searchBandsinTown(artist) {
+// console.log(artist)
+// var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp",) {
+
+// }
+
+//request(queryURL, function (err, response, body) {
+// var concertInfo = JSON.parse(body);
+// console.log("The name of the venue is: " + concertInfo[0].venue.name);
+//  console.log("The location of this venue is: " + concertInfo.city.name);
+// var dateTimeConcert = moment(concertInfo[0].datatime).format("MM/DD/YYYY")
+//  console.log("The date of this event is: " + dateTimeConcert + " ");
+
+
+//});
+//};
 
 // Movie search 
 
@@ -96,7 +115,7 @@ function movieThis(search) {
     console.log(queryURL);
 
     axios.get(queryURL).then(
-        function(response) {
+        function (response) {
             console.log("Movie Title: " + response.data.Title);
             console.log("Year Released: " + response.data.Year);
             console.log("Rating: " + response.data.Rating);
@@ -112,7 +131,7 @@ function movieThis(search) {
 // random.text function
 function runRandomTxt() {
     var fs = require('fs');
-    fs.readFile('random.text', 'utf8', function (err, data){
+    fs.readFile('random.text', 'utf8', function (err, data) {
         if (err) {
             return console.log(err);
         }
@@ -120,7 +139,7 @@ function runRandomTxt() {
         var dataArr = data.split(",");
         console.log(dataArr);
         runSpotifySearch(dataArr[1]);
-    
+
     });
 };
 
