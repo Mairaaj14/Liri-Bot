@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Mairaaj14/Liri-Bot/issues"
   },
-  "homepage": "https://github.com/Mairaaj14/Liri-Bot#readme"
+  "homepage": "https://github.com/Mairaaj14/Liri-Bot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "liri_kf": "^1.0.0",
+    "moment": "^2.22.2",
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.88.0"
+  }
 }
