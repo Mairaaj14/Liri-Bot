@@ -10,7 +10,7 @@ var spotify = new Spotify(keys.spotify);
 var moment = require("moment");
 
 // Create spotify function
-function spotifyThisSong(search) {
+function runSpotifySearch(songName) {
     var Spotify = require('node-spotify-api');
     var keys = require('./keys.js');
 
@@ -22,8 +22,8 @@ function spotifyThisSong(search) {
         },
         function (err, data) {
             if (data) {
-                var data = data.tracks.items[0];
-                var data = console.log('Song Name: ' + songInfo.name);
+                var trackInfo = data.tracks.items[0];
+                var trackResult = console.log('Song Name: ' + songInfo.name);
                 console.log('Artist Name: ' + songInfo.artists[0].name);
                 console.log('A preview link of the song from Spotify' + songInfo.preview_url);
                 console.log('This song is part of the following album ' + songInfo.album.name);
@@ -44,7 +44,7 @@ var action = process.argv[2];
 function liriSwitch(action, artist) {
     switch (action) {
         case "spotify-this-song":
-            spotifyThisSong(search);
+            runSpotifySearch(artist);
             break;
 
         case "movie-this":
