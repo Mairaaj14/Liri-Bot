@@ -5,14 +5,16 @@ require('dotenv').config();
 var request = require('request');
 var fs = require("fs");
 var keys = require("./keys.js");
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify);
+//var Spotify = require('node-spotify-api');
+//var spotify = new Spotify(keys.spotify);
 var moment = require("moment");
+var inquirer = require('inquirer');
 
 // Create spotify function
 function runSpotifySearch(songName) {
     var Spotify = require('node-spotify-api');
     var keys = require('./keys.js');
+
 
     var spotify = new Spotify(keys.spotify);
 
@@ -21,16 +23,18 @@ function runSpotifySearch(songName) {
             query: songName
         },
         function (err, data) {
-            if (data) {
-                var trackInfo = data.tracks.items[0];
-                var trackResult = console.log('Song Name: ' + songInfo.name);
-                console.log('Artist Name: ' + songInfo.artists[0].name);
-                console.log('A preview link of the song from Spotify' + songInfo.preview_url);
-                console.log('This song is part of the following album ' + songInfo.album.name);
-
-            } else(err) => {
+            if (err) {
                 return console.log('An error has ocurred: ' + err);
-            };
+            }
+
+            var trackInfo = data.tracks.items[0];
+            console.log(trackInfo)
+            var trackResult = console.log('Song Name: ' + trackInfo.name);
+            console.log('Artist Name: ' + trackInfo.artists[0].name);
+           
+           // console.log('A preview link of the song from Spotify' + trackInfo.preview_url);
+            //console.log('This song is part of the following album ' + trackInfo.album.name);
+
 
         });
 };
@@ -83,8 +87,9 @@ function concertThis(search) {
             console.log("The date of this event is: " + date + "!");
         }
 
-    )}
-    
+    )
+}
+
 
 // Movie search 
 
@@ -136,15 +141,19 @@ function askLiri() {
     inquirer.prompt([{
         type: "list",
         message: "Liri, can you please...",
-        choices: ["look up a song.",
-            "find info about a concert.",
-            "look up a movie.",
-            "<error>"
+        choices: ["spotify-this-song",
+            "movie-this",
+            "concert-this"
         ],
         name: "searchType"
 
 
     }]).then(function (response) {
+       liriSwitch(response.searchType)
+       // Prompt to ask question for which artist
+       //Ask question before 152 
+       console.log(response.searchType)
 
     });
 };
+askLiri()
